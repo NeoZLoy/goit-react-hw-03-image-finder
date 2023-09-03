@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import { disableBodyScroll, enableBodyScroll, } from 'body-scroll-lock';
 import { StyledImage, StyledPreview } from './GalleryItem.syled';
 
 Modal.setAppElement('#root');
@@ -11,6 +12,12 @@ export class GalleryItem extends Component{
         isModalOpen: false,
     }
 
+    targetElement = null;
+
+    componentDidMount() {
+        this.targetElement = document.querySelector('#root');
+      }
+
     customStyles = {
     content: {
       top: '50%',
@@ -20,16 +27,25 @@ export class GalleryItem extends Component{
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
       padding: '0',
-      height: '90vh'
+      height: '90vh',
+      position: 'fixed',
     },
     overlay: {
         backgroundColor: 'rgba(0,0,0, 0.3)',
+        position: 'fixed',
     }
   };
     
-    openModal = () => this.setState({isModalOpen:true});
+    openModal = () => {
+        disableBodyScroll(this.targetElement);
+        this.setState({isModalOpen:true})};
     
-    closeModal = () => this.setState({isModalOpen:false});
+    closeModal = () => 
+    {
+        enableBodyScroll(this.targetElement);
+        this.setState({isModalOpen:false});
+    }
+    
     
 
     render(){
