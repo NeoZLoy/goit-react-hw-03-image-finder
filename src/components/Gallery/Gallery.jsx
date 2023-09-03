@@ -1,24 +1,26 @@
 
-import { StyledList, StyledItem, StyledImage } from "./Gallery.styled"
+import { GalleryItem } from "components/GalleryItem/GalleryItem"
+import { StyledList,LoadMoreButton } from "./Gallery.styled"
 
-export const Gallery = ({images, onLoadMoreClick}) => {
+export const Gallery = ({images, onLoadMoreClick, noImages}) =>{
     return(
         <>
-         <StyledList>
+        {noImages 
+        ? <p>We cant find images :c</p> 
+        : <StyledList>
         {images.map(image => {
             return(
-            <StyledItem key = {image.id}>
-                <StyledImage src={image.webformatURL} alt = {image.id}/>
-            </StyledItem>
+            <li key = {image.id} >
+                <GalleryItem image = {image}/>
+            </li>
             )
            
         })}
-        
-        </StyledList>
-        {images.length > 0 && (
-            <button onClick={onLoadMoreClick}>Load More</button>
+        </StyledList>}
+         
+        {(images.length > 0) && (
+            <LoadMoreButton onClick={onLoadMoreClick}>Load More</LoadMoreButton>
         )}
         </>
-       
-    )
+)
 }
