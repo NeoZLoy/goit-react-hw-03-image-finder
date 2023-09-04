@@ -2,7 +2,7 @@
 import { GalleryItem } from "components/GalleryItem/GalleryItem"
 import { StyledList,LoadMoreButton } from "./Gallery.styled"
 
-export const Gallery = ({images, onLoadMoreClick, noImages}) =>{
+export const Gallery = ({images, onLoadMoreClick, noImages, totalPages, page}) =>{
     return(
         <>
         {noImages 
@@ -18,7 +18,7 @@ export const Gallery = ({images, onLoadMoreClick, noImages}) =>{
         })}
         </StyledList>}
          
-        {(images.length > 0) && (
+        {(images.length > 0 && totalPages !== page ) && (
             <LoadMoreButton onClick={onLoadMoreClick}>Load More</LoadMoreButton>
         )}
         </>
